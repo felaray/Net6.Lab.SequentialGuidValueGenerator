@@ -18,13 +18,14 @@ namespace Net6.Lab.GenId.Data
 
         public DbSet<Net6.Lab.GenId.WeatherForecast> WeatherForecast { get; set; }
         public DbSet<Net6.Lab.GenId.Location> Location { get; set; }
+        public DbSet<Net6.Lab.GenId.Note> Note { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //利用值產生器來建立 SequentialGuidValueGenerator
             modelBuilder.Entity<WeatherForecast>(c => c.Property("Id").HasValueGenerator<SequentialGuidValueGenerator>());
-
             modelBuilder.Entity<Location>(c => c.Property("Id").HasValueGenerator<SequentialGuidValueGenerator>());
+            modelBuilder.Entity<Note>(c => c.Property("Id").HasValueGenerator<SequentialGuidValueGenerator>());
         }
 
     }

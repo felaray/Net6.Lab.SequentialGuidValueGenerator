@@ -56,9 +56,10 @@ namespace Net6.Lab.GenId.Controllers
                     Date = DateTime.Now,
                     Location = new List<Location>
                      {
-                        new Location{ Name="aaa"},
-                        new Location{ Name="bbb"},
-                        new Location{ Name="ccc"}
+                        new Location{
+                            Name="aaa",
+                            Note=new List<Note>{
+                                new Note{Detail="=========================="}} }
                      }
                 });
                 await _context.SaveChangesAsync();
@@ -82,7 +83,7 @@ namespace Net6.Lab.GenId.Controllers
         [HttpGet]
         public async Task<IActionResult> GetItem(Guid Id)
         {
-            var res = await new Repository<WeatherForecast>(_context).SingleOrDefaultAsync(Id, "Location");
+            var res = await new Repository<WeatherForecast>(_context).SingleOrDefaultAsync(Id, "Location.Note");
             return Ok(res);
         }
     }
