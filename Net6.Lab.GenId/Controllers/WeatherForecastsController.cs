@@ -24,11 +24,11 @@ namespace Net6.Lab.GenId.Controllers
         }
 
         // GET: api/WeatherForecasts
-        [HttpGet]
-        public async Task<ActionResult> GetWeatherForecast()
-        {
-            return Ok(await _context.WeatherForecast.Select(c => c.Date).ToListAsync());
-        }
+        //[HttpGet]
+        //public async Task<ActionResult> GetWeatherForecast()
+        //{
+        //    return Ok(await _context.WeatherForecast.Select(c => c.Date).ToListAsync());
+        //}
 
         /// <summary>
         /// 測試 SequentialGuidValueGenerator 產出的陣列
@@ -53,7 +53,13 @@ namespace Net6.Lab.GenId.Controllers
             {
                 _context.WeatherForecast.Add(new WeatherForecast
                 {
-                    Date = DateTime.Now
+                    Date = DateTime.Now,
+                    Location = new List<Location>
+                     {
+                        new Location{ Name="aaa"},
+                        new Location{ Name="bbb"},
+                        new Location{ Name="ccc"}
+                     }
                 });
                 await _context.SaveChangesAsync();
             }
@@ -72,5 +78,12 @@ namespace Net6.Lab.GenId.Controllers
             return NoContent();
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> GetItem(Guid Id)
+        {
+            var res = await new Repository<WeatherForecast>(_context).SingleOrDefaultAsync(Id, "Location");
+            return Ok(res);
+        }
     }
 }

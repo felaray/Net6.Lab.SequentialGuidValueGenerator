@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Net6.Lab.GenId.Data;
 
@@ -11,9 +12,10 @@ using Net6.Lab.GenId.Data;
 namespace Net6.Lab.GenId.Migrations
 {
     [DbContext(typeof(Net6LabGenIdContext))]
-    partial class Net6LabGenIdContextModelSnapshot : ModelSnapshot
+    [Migration("20220420062707_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,12 +34,7 @@ namespace Net6.Lab.GenId.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("WeatherForecastId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WeatherForecastId");
 
                     b.ToTable("Location");
                 });
@@ -54,18 +51,6 @@ namespace Net6.Lab.GenId.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WeatherForecast");
-                });
-
-            modelBuilder.Entity("Net6.Lab.GenId.Location", b =>
-                {
-                    b.HasOne("Net6.Lab.GenId.WeatherForecast", null)
-                        .WithMany("Location")
-                        .HasForeignKey("WeatherForecastId");
-                });
-
-            modelBuilder.Entity("Net6.Lab.GenId.WeatherForecast", b =>
-                {
-                    b.Navigation("Location");
                 });
 #pragma warning restore 612, 618
         }
